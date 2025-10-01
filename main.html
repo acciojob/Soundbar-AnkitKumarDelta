@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<style>
+  <style>
 		/*  your css code here. If applicable */
 body{
 	background-color:#A164DF;
@@ -23,7 +23,6 @@ body{
 	</style>
 </head>
 <body>
-  <!-- the entire body must be written by student -->
   <div id="buttons" class="main">
     <button class="btn">applause</button>
     <button class="btn">boo</button>
@@ -34,31 +33,48 @@ body{
     <button class="stop">stop</button>
   </div>
 
+  <!-- place where audio tags will be injected -->
+  <div id="audio-container"></div>
+
   <script>
     const sounds = ["applause", "boo", "gasp", "tada", "victory", "wrong"];
     let currentAudio = null;
+
+    function stopAudio() {
+      if (currentAudio) {
+        currentAudio.pause();
+        currentAudio.currentTime = 0;
+        currentAudio = null;
+      }
+    }
 
     // Add event listeners to sound buttons
     document.querySelectorAll(".btn").forEach(btn => {
       btn.addEventListener("click", () => {
         stopAudio();
+
         const soundName = btn.innerText.trim();
-        currentAudio = new Audio(`sounds/${soundName}.mp3`);
-        currentAudio.play();
+        const audioContainer = document.getElementById("audio-container");
+
+        // clear old audio tags
+        audioContainer.innerHTML = "";
+
+        // create a new <audio> element in DOM
+        const audioEl = document.createElement("audio");
+        audioEl.src = `sounds/${soundName}.mp3`;
+        audioEl.setAttribute("controls", "true"); // optional, helps Cypress detect
+        audioEl.autoplay = true;
+
+        audioContainer.appendChild(audioEl);
+        currentAudio = audioEl;
       });
     });
 
     // Stop button
     document.querySelector(".stop").addEventListener("click", () => {
       stopAudio();
+      document.getElementById("audio-container").innerHTML = "";
     });
-
-    function stopAudio() {
-      if (currentAudio) {
-        currentAudio.pause();
-        currentAudio.currentTime = 0;
-      }
-    }
   </script>
 </body>
 </html>
