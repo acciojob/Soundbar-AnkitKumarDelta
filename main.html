@@ -1,27 +1,64 @@
 <!DOCTYPE html>
-
 <html>
-
 <head>
-	<link rel="stylesheet" href="styles.css">
-	
+	<style>
+		/*  your css code here. If applicable */
+body{
+	background-color:#A164DF;
+}
+.main{
+	display:flex;
+	justify-content:space-around;
+	margin:50% 50%;
+}
+.btn,.stop{
+	background-color:#663399;
+	width:400px;
+	height:30px;
+	margin:20px;
+	padding:10px;
+	text-align:center;
+	color:white;
+}
+	</style>
 </head>
-
 <body>
-	<!-- the entire body must be written by student -->
-	<div class="main">
-<button id="buttons" class="btn">applause</button>
-<button id="buttons" class="btn">boo</button>
-<button id="buttons" class="btn">gasp</button>
-<button id="buttons" class="btn">tada</button>
-<button id="buttons" class="btn">victory</button>
-<button id="buttons" class="btn">wrong</button>
-<button id="buttons" class="stop">stop</button>
-	</div>
-    <script>
-		let btns = 
-</script>
+  <!-- the entire body must be written by student -->
+  <div id="buttons" class="main">
+    <button class="btn">applause</button>
+    <button class="btn">boo</button>
+    <button class="btn">gasp</button>
+    <button class="btn">tada</button>
+    <button class="btn">victory</button>
+    <button class="btn">wrong</button>
+    <button class="stop">stop</button>
+  </div>
 
+  <script>
+    const sounds = ["applause", "boo", "gasp", "tada", "victory", "wrong"];
+    let currentAudio = null;
+
+    // Add event listeners to sound buttons
+    document.querySelectorAll(".btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        stopAudio();
+        const soundName = btn.innerText.trim();
+        currentAudio = new Audio(`sounds/${soundName}.mp3`);
+        currentAudio.play();
+      });
+    });
+
+    // Stop button
+    document.querySelector(".stop").addEventListener("click", () => {
+      stopAudio();
+    });
+
+    function stopAudio() {
+      if (currentAudio) {
+        currentAudio.pause();
+        currentAudio.currentTime = 0;
+      }
+    }
+  </script>
 </body>
-
 </html>
