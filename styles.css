@@ -1,1 +1,18 @@
 /*  your css code here. If applicable */
+body{
+	background-color:#A164DF;
+}
+.main{
+	display:flex;
+	justify-content:space-around;
+	margin:50% 50%;
+}
+#buttons{
+	background-color:#663399;
+	width:400px;
+	height:30px;
+	margin:20px;
+	padding:10px;
+	text-align:center;
+	color:white;
+}
